@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Most Basic Web Component - Web Components Demo</title>
+    </head>
+    <body>
+        <h1>Most Basic Web Component</h1>
+        
+        <my-book>Moby-Dick or, the Whale</my-book>
+        
+        <script>
+            customElements.define("my-book", MyBook, { extends: "div" });
+
+            class MyBook extends HTMLDivElement {
+                constructor() {
+                    super();
+                }
+            }
+        </script>
+    </body>
+</html>
