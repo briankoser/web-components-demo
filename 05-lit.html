@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>lit - Web Components Demo</title>
+    </head>
+    <body>
+        <h1>Basic lit web component</h1>
+
+        <my-book title="Something Wicked This Way Comes" author="Ray Bradbury"></my-book>
+        <my-book></my-book>
+        
+        <script type="module">
+            import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+            
+            export class MyBook extends LitElement {
+                static styles = css`
+                    h1 {
+                        color: slateblue;
+                    }
+                    h2 {
+                        color: lightseagreen;
+                    }
+                    `;
+
+                static properties = {
+                    title: {type: String},
+                    author: {type: String},
+                };
+
+                constructor() {
+                    super();
+                    this.title = 'Default title';
+                    this.author = 'Default author';
+                }
+
+                render() {
+                    return html`
+                        <h1>${this.title}</h1>
+                        <h2>${this.author}</h2>
+                    `;
+                }
+            }
+
+            customElements.define('my-book', MyBook);
+        </script>
+    </body>
+</html>
