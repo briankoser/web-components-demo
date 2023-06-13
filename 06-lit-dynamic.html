@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dynamic lit - Web Components Demo</title>
+    </head>
+    <body>
+        <h1>Dynamic lit web component</h1>
+        <small>Example title: Jonathan Strange and Mr Norrell</small>
+
+        <my-book></my-book>
+        
+        <script type="module">
+            import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+            
+            export class MyBook extends LitElement {
+                static styles = css`
+                    :host {
+                        display: block;
+                        margin-top: 2em;
+                    }
+
+                    input {
+                        width: 20em;
+                    }
+                    `;
+
+                static properties = {
+                    coverUrl: {type: String},
+                };
+
+                constructor() {
+                    super();
+                }
+
+                async getBookCover(event) {
+                    const apiKey = '';
+                    const input = event.target;
+                    let search = `intitle:"${input.value}"`;
+                    
+                    let result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(search)}&maxResults=1&printType=books&key=${apiKey}`);
+                    let data = await result.json();
+
+                    if (data.items && data.items.length >= 1) {
+                        let foundBook = data.items[0];
+                        this.coverUrl = foundBook.volumeInfo.imageLinks.thumbnail;
+                    };
+                }
+
+                render() {
+                    return html`
+                        <label for="bookTitle">Title</label>
+                        <input @input=${this.getBookCover} placeholder="Enter book title" name="bookTitle"></input>
+                        <img src="${this.coverUrl}" />
+                    `;
+                }
+            }
+
+            customElements.define('my-book', MyBook);
+        </script>
+    </body>
+</html>
