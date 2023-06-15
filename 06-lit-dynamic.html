@@ -5,7 +5,6 @@
     </head>
     <body>
         <h1>Dynamic lit web component</h1>
-        <small>Example title: Jonathan Strange and Mr Norrell</small>
 
         <my-book></my-book>
         
@@ -15,6 +14,11 @@
             export class MyBook extends LitElement {
                 static styles = css`
                     :host {
+                        display: block;
+                        margin-top: 2em;
+                    }
+
+                    img {
                         display: block;
                         margin-top: 2em;
                     }
@@ -49,7 +53,7 @@
                 render() {
                     return html`
                         <label for="bookTitle">Title</label>
-                        <input @input=${this.getBookCover} placeholder="Enter book title" name="bookTitle"></input>
+                        <input @blur=${this.getBookCover} placeholder="Enter book title" name="bookTitle"></input>
                         <img src="${this.coverUrl}" />
                     `;
                 }
