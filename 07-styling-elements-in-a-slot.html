@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Styling - Web Components Demo</title>
+    </head>
+    <body>
+        <h1>Styling elements in a slot</h1>
+
+        <template id="book-template">
+            <slot></slot>
+            <h2>Shadow DOM</h2>
+            <button>Buy used</button>
+        </template>
+        
+        <my-book>
+            <h2>DOM</h2>
+            <button>Buy new</button>
+        </my-book>
+
+        <style>
+            button {
+                background-color: lightgoldenrodyellow;
+            }
+        </style>
+
+        <script>
+            class MyBook extends HTMLDivElement {
+                constructor() {
+                    super();
+
+                    let template = document.getElementById("book-template");
+                    let templateContent = template.content;
+
+                    const shadowRoot = this.attachShadow({ mode: "open" });
+                    shadowRoot.appendChild(templateContent.cloneNode(true));
+                }
+            }
+
+            customElements.define("my-book", MyBook, { extends: "div" });
+        </script>
+    </body>
+</html>

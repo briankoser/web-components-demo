@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Component with template and slot - Web Components Demo</title>
+    </head>
+    <body>
+        <h1>Web Component with template and slot</h1>
+        
+        <template id="book-template">
+            <h1><slot name="title">Default title</slot></h1>
+            <h2><slot name="author">Default author</slot></h2>
+            <style>
+                h1 {
+                    color: deepskyblue;
+                }
+                h2 {
+                    color: deeppink;
+                }
+            </style>
+        </template>
+
+        <my-book>
+            <span slot="title">Anathem</span>
+            <span slot="author">Neil Stephenson</span>
+        </my-book>
+
+        <my-book></my-book>
+        
+        <script>
+            class MyBook extends HTMLDivElement {
+                constructor() {
+                    super();
+
+                    let template = document.getElementById("book-template");
+                    let templateContent = template.content;
+
+                    const shadowRoot = this.attachShadow({ mode: "open" });
+                    shadowRoot.appendChild(templateContent.cloneNode(true));
+                }
+            }
+
+            customElements.define("my-book", MyBook, { extends: "div" });
+        </script>
+    </body>
+</html>

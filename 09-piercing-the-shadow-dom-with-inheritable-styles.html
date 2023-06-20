@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Web Component with template and slot - Web Components Demo</title>
+        <title>Styling - Web Components Demo</title>
     </head>
     <body>
-        <h1>Web Component with template and slot</h1>
-        
-        <template id="book-template">
-            <h1><slot name="title">Default title</slot></h1>
-            <h2><slot name="author">Default author</slot></h2>
-            <style>
-                h1 {
-                    color: slateblue;
-                }
-                h2 {
-                    color: lightseagreen;
-                }
-            </style>
-        </template>
+        <h1>Piercing the Shadow DOM with inheritable styles</h1>
 
+        <template id="book-template">
+            <slot></slot>
+            <h2>Shadow DOM</h2>
+            <button>Buy used (Shadow DOM)</button>
+        </template>
+        
         <my-book>
-            <span slot="title">Anathem</span>
-            <span slot="author">Neil Stephenson</span>
+            <h2>DOM</h2>
+            <button>Buy new (DOM)</button>
         </my-book>
 
-        <my-book></my-book>
-        
+        <style>
+            my-book {
+                color: teal;
+                font-family: cursive;
+            }
+
+            my-book button {
+                color: maroon;
+                font-family: cursive;
+            }
+        </style>
+
         <script>
             class MyBook extends HTMLDivElement {
                 constructor() {
