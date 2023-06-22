@@ -6,7 +6,7 @@
     <body>
         <h1>Web Component with ShadowDOM</h1>
         
-        <my-book>This goes in the ShadowDOM!</my-book>
+        <my-book></my-book>
         
         <script>
             class MyBook extends HTMLDivElement {
@@ -18,11 +18,11 @@
                     let style = document.createElement("style");
                     style.textContent = `h1 {color: cornflowerblue;}`;
 
-                    const wrapper = document.createElement("h1");
-                    wrapper.textContent = 'The Lord of the Rings';
+                    const h1 = document.createElement("h1");
+                    h1.textContent = 'The Lord of the Rings';
 
                     shadow.appendChild(style);
-                    shadow.appendChild(wrapper);
+                    shadow.appendChild(h1);
                 }
             }
 
